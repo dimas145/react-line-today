@@ -25,8 +25,11 @@ function App() {
                 <Switch>
                     <Redirect exact from="/" to={"/category/" + categories[0].name} />
                     <Redirect exact from="/category" to={"/category/" + categories[0].name} />
-                    <Route exact path="/category/:name">
+                    <Route path="/category/:name">
                         <FeedsComponent feeds={feeds} />
+                    </Route>
+                    <Route path="/bookmarks">
+                        <FeedsComponent />
                     </Route>
                 </Switch>
             </BrowserRouter>

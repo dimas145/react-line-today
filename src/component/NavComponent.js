@@ -14,6 +14,7 @@ export default function NavComponent(props) {
                         ))}
                     </Nav>
                 </Navbar.Collapse>
+                <Navbar.Brand href="/bookmarks">Bookmarks</Navbar.Brand>
             </Navbar>
         </div>
     )
