@@ -12,6 +12,9 @@ export default function FeedsComponent(props) {
         return item.name === name;
     }).templates;
 
+    console.log("feeds");
+    console.log(feeds);
+
     // filter feeds
     useEffect(() => {
         cardProps = [];
@@ -20,12 +23,14 @@ export default function FeedsComponent(props) {
                 if (feeds[i].sections[0].articles.length !== 0) {
                     var articles = feeds[i].sections[0].articles;
                     for (var j = 0; j < articles.length; j++) {
-                        if (articles[j].hasOwnProperty("thumbnail") && articles[j].hasOwnProperty("title") && articles[j].hasOwnProperty("publisher"))
-                        cardProps.push({
-                            img: "https://obs.line-scdn.net/" + articles[j].thumbnail.hash,
-                            title: articles[j].title,
-                            publisher: articles[j].publisher,
-                        });
+                        if (articles[j].hasOwnProperty("thumbnail") && articles[j].hasOwnProperty("title") && articles[j].hasOwnProperty("publisher") && articles[j].hasOwnProperty("url")) {
+                            cardProps.push({
+                                img: "https://obs.line-scdn.net/" + articles[j].thumbnail.hash,
+                                title: articles[j].title,
+                                publisher: articles[j].publisher,
+                                url: articles[j].url.url,
+                            });
+                        }
                     }
                 }
             }
@@ -33,15 +38,16 @@ export default function FeedsComponent(props) {
         setCards(cardProps);
     }, [feeds]);
 
-    if(!cards.length) return (<span>loading...</span>);
+    if (!cards.length) return (<span>loading...</span>);
 
     return (
         <div className="feeds_component">
             {cards.map((props) => (
-                <CardComponent 
+                <CardComponent
                     img={props.img}
                     title={props.title}
                     publisher={props.publisher}
+                    url={props.url}
                 />
             ))}
         </div>

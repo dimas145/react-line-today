@@ -16,7 +16,7 @@ function App() {
         });
     }, []);
 
-    if(!feeds.length) return (<span>loading...</span>);
+    if (!feeds.length) return (<span>loading...</span>);
 
     return (
         <div className="App">
@@ -24,7 +24,7 @@ function App() {
                 <NavComponent categories={categories} />
                 <Switch>
                     <Route exact path="/category/:name">
-                        <FeedsComponent feeds={feeds}/>
+                        <FeedsComponent feeds={feeds} />
                     </Route>
                 </Switch>
             </BrowserRouter>
