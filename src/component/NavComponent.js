@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react"
 import { Navbar, Nav } from "react-bootstrap";
 
-function NavComponent(props) {
+export default function NavComponent(props) {
     return (
         <div className="nav_component">
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -18,5 +18,3 @@ function NavComponent(props) {
         </div>
     )
 }
-
-export default NavComponent;

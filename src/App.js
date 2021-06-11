@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from "react"
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import NavComponent from "./component/NavComponent"
 import FeedsComponent from "./component/FeedsComponent"
 import axios from "axios";
+import "./styles/app.css"
 
 function App() {
     const [categories, setCategories] = useState([]);
