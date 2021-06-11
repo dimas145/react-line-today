@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import NavComponent from "./component/NavComponent"
 import FeedsComponent from "./component/FeedsComponent"
 import axios from "axios";
@@ -16,13 +16,15 @@ function App() {
         });
     }, []);
 
-    if (!feeds.length) return (<span>loading...</span>);
+    if (!feeds.length || !categories.length) return (<span>loading...</span>);
 
     return (
         <div className="App">
             <BrowserRouter>
                 <NavComponent categories={categories} />
                 <Switch>
+                    <Redirect exact from="/" to={"/category/" + categories[0].name} />
+                    <Redirect exact from="/category" to={"/category/" + categories[0].name} />
                     <Route exact path="/category/:name">
                         <FeedsComponent feeds={feeds} />
                     </Route>

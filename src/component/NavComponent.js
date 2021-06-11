@@ -5,7 +5,7 @@ export default function NavComponent(props) {
     return (
         <div className="nav_component">
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand href="home">Line Today</Navbar.Brand>
+                <Navbar.Brand href="/">Line Today</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav>

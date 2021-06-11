@@ -12,9 +12,6 @@ export default function FeedsComponent(props) {
         return item.name === name;
     }).templates;
 
-    console.log("feeds");
-    console.log(feeds);
-
     // filter feeds
     useEffect(() => {
         cardProps = [];
@@ -35,7 +32,9 @@ export default function FeedsComponent(props) {
                 }
             }
         }
-        setCards(cardProps);
+        // remove dupe
+        var temp = cardProps;
+        setCards(Array.from(new Set(temp.map(JSON.stringify))).map(JSON.parse));
     }, [feeds]);
 
     if (!cards.length) return (<span>loading...</span>);
@@ -44,6 +43,7 @@ export default function FeedsComponent(props) {
         <div className="feeds_component">
             {cards.map((props) => (
                 <CardComponent
+                    key={props.title}
                     img={props.img}
                     title={props.title}
                     publisher={props.publisher}
