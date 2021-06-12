@@ -11,9 +11,11 @@ export default function FeedsComponent(props) {
     const location = useLocation();
     let { name } = useParams();
 
+    var empty = false;
+
     if (location.pathname === "/bookmarks") {
         bookmarks = JSON.parse(window.localStorage.getItem("bookmarks"));
-        console.log(bookmarks);
+        empty = (bookmarks.length === 0);
     } else {
         feeds = props.feeds.find((item) => {
             return item.name === name;
@@ -49,7 +51,7 @@ export default function FeedsComponent(props) {
         }
     }, [location.pathname]);
 
-    if (!cards.length) return (<span>loading...</span>);
+    if (!cards.length && !empty) return (<span>loading...</span>);
 
     return (
         <div className="feeds_component">

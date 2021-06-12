@@ -1,21 +1,45 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Row, Card, Button } from "react-bootstrap"
 
 export default function CardComponent(props) {
+    const [bookmarked, setBookmarked] = useState(false);
+
+    var bookmarks = JSON.parse(window.localStorage.getItem("bookmarks"));
+    if (!(bookmarks instanceof Array)) {
+        bookmarks = [];
+    }
+
+    useEffect(() => {
+        setBookmarked(bookmarks.some((el) => {
+            return ((el.img === props.img) && (el.title === props.title) && (el.publisher === props.publisher) && (el.url === props.url))
+        }));
+    }, []);
+
     const cardOnClick = () => {
         window.open(props.url, "_blank");
     }
 
     const btnOnClick = () => {
-        var bookmarks = JSON.parse(window.localStorage.getItem("bookmarks"));
+        bookmarks = JSON.parse(window.localStorage.getItem("bookmarks"));
         if (!(bookmarks instanceof Array)) {
             bookmarks = [];
         }
-        bookmarks.push(props);
-        // remove dupe
-        var temp = bookmarks;
-        bookmarks = Array.from(new Set(temp.map(JSON.stringify))).map(JSON.parse);
-        window.localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+
+        if (bookmarked) {
+            // remove
+            bookmarks = bookmarks.filter((el) => {
+                return ((el.img !== props.img) && (el.title !== props.title) && (el.publisher !== props.publisher) && (el.url !== props.url))
+            })
+            window.localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+
+            setBookmarked(false);
+        } else {
+            // add
+            bookmarks.push(props);
+            window.localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+
+            setBookmarked(true);
+        }
     }
 
     return (
@@ -32,7 +56,11 @@ export default function CardComponent(props) {
                 </Card>
             </Row>
             <Row>
-                <Button onClick={btnOnClick}>Bookmark</Button>
+                {bookmarked ? (
+                    <Button onClick={btnOnClick} variant="danger">Unbookmark</Button>
+                ) : (
+                    <Button onClick={btnOnClick}>Bookmark</Button>
+                )}
             </Row>
         </div>
     );
